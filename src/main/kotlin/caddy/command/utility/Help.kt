@@ -5,6 +5,7 @@ import caddy.command.CommandHandler
 import caddy.command.createCommand
 import caddy.paging.createPaginator
 import caddy.util.Colors
+import caddy.util.Emojis
 import caddy.util.replyEmbed
 import com.xenomachina.argparser.default
 
@@ -53,7 +54,7 @@ val Help = createCommand(
                     }
                 } else {
                     color = Colors.Red
-                    title = "❌  Error running help"
+                    title = "${Emojis.ERROR} Error running help"
                     description = "Unable to find a command with the name or alias `$command`"
 
                     footer {

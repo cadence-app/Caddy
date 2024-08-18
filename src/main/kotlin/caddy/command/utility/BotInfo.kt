@@ -5,6 +5,7 @@ import caddy.command.CommandCategory
 import caddy.command.createCommand
 import caddy.onlineTimestamp
 import caddy.util.Colors
+import caddy.util.Emojis
 import caddy.util.replyEmbed
 import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.toMessageFormat
@@ -24,7 +25,7 @@ val BotInfo = createCommand(
         color = Colors.Blue
         title = self.tag
         description = """
-            🔗 [${BuildConfig.GIT_REPO_URL.replace(repoUrlRegex, "$6")}](${BuildConfig.GIT_REPO_URL})
+            ${Emojis.GITHUB} [${BuildConfig.GIT_REPO_URL.replace(repoUrlRegex, "$6")}](${BuildConfig.GIT_REPO_URL})
         """.trimIndent()
 
         thumbnail {

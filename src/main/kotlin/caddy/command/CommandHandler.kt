@@ -4,10 +4,7 @@ import caddy.command.`fun`.Alien
 import caddy.command.utility.BotInfo
 import caddy.command.utility.Help
 import caddy.command.utility.Ping
-import caddy.util.Colors
-import caddy.util.Logger
-import caddy.util.replyEmbed
-import caddy.util.createErrorEmbed
+import caddy.util.*
 import com.xenomachina.argparser.*
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
@@ -61,7 +58,7 @@ object CommandHandler {
                 catch (e: OptionMissingRequiredArgumentException) {
                     message.replyEmbed {
                         color = Colors.Red
-                        title = "❌  Command failed"
+                        title = "${Emojis.ERROR} Command failed"
 
                         this.description = "One or more options are missing a required argument"
                     }
@@ -70,7 +67,7 @@ object CommandHandler {
                 catch (e: MissingValueException) {
                     message.replyEmbed {
                         color = Colors.Red
-                        title = "❌  Command failed"
+                        title = "${Emojis.ERROR} Command failed"
 
                         this.description = "One or more options are missing"
                     }

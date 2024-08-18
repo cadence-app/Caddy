@@ -10,7 +10,7 @@ import dev.kord.rest.builder.message.embed
 fun Command.createErrorEmbed(throwable: Throwable): EmbedBuilder {
     return EmbedBuilder().apply {
         color = Colors.Red
-        title = "❌  Command failed"
+        title = "${Emojis.ERROR} Command failed"
 
         this.description = """
                            An unknown error occurred trying to run "$name"
