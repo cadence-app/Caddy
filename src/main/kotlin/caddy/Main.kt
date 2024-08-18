@@ -10,6 +10,8 @@ import dev.kord.gateway.ALL
 import dev.kord.gateway.Intents
 import dev.kord.gateway.PrivilegedIntent
 
+var onlineTimestamp = 0L
+
 @OptIn(PrivilegedIntent::class)
 suspend fun main() {
     val client = Kord(System.getenv("CADDY_BOT_TOKEN")) {
@@ -18,6 +20,7 @@ suspend fun main() {
 
     client.on<ReadyEvent> {
         Logger.DEFAULT.info("Logged in as ${self.tag}")
+        onlineTimestamp = System.currentTimeMillis()
 
         client.editPresence {
             watching("you.")

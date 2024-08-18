@@ -1,10 +1,21 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.ByteArrayOutputStream
 
 plugins {
     kotlin("jvm") version "2.0.20-RC2"
+    id("com.github.gmazzo.buildconfig") version "5.4.0"
 }
 
 group = "caddy"
+
+buildConfig {
+    buildConfigField("GIT_BRANCH", getCurrentBranch())
+    buildConfigField("GIT_COMMIT", getLatestCommit())
+    buildConfigField("GIT_REPO_URL", getRepoUrl())
+    buildConfigField("GIT_LOCAL_COMMITS", hasLocalCommits())
+    buildConfigField("GIT_LOCAL_CHANGES", hasLocalChanges())
+
+}
 
 repositories {
     mavenCentral()
@@ -45,4 +56,46 @@ dependencies {
     val argParserVersion = "2.0.7"
 
     implementation("com.xenomachina:kotlin-argparser:$argParserVersion")
+}
+
+fun getCurrentRemote(): String? =
+    exec("git", "remote")
+
+fun getRepoUrl(): String? =
+    exec("git", "remote", "get-url", getCurrentRemote() ?: "origin")?.removeSuffix(".git")
+
+fun getCurrentBranch(): String? =
+    exec("git", "symbolic-ref", "--short", "HEAD")
+
+fun getLatestCommit(): String? =
+    exec("git", "rev-parse", "--short", "HEAD")
+
+fun hasLocalCommits(): Boolean {
+    val branch = getCurrentBranch() ?: return false
+    return exec("git", "log", "${getCurrentRemote()}/$branch..HEAD")?.isNotBlank() ?: false
+}
+
+fun hasLocalChanges(): Boolean =
+    exec("git", "status", "-s")?.isNotEmpty() ?: false
+
+fun exec(vararg command: String): String? {
+    return try {
+        val stdout = ByteArrayOutputStream()
+        val errout = ByteArrayOutputStream()
+
+        exec {
+            commandLine = command.toList()
+            standardOutput = stdout
+            errorOutput = errout
+            isIgnoreExitValue = true
+        }
+
+        if(errout.size() > 0)
+            throw Error(errout.toString())
+
+        stdout.toString().trim()
+    } catch (e: Throwable) {
+        e.printStackTrace()
+        null
+    }
 }

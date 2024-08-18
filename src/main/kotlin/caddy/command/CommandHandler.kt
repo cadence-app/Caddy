@@ -1,6 +1,7 @@
 package caddy.command
 
 import caddy.command.`fun`.Alien
+import caddy.command.utility.BotInfo
 import caddy.command.utility.Help
 import caddy.command.utility.Ping
 import caddy.util.Colors
@@ -19,6 +20,7 @@ object CommandHandler {
         // Utility
         Ping,
         Help,
+        BotInfo,
 
         // Fun
         Alien

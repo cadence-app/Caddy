@@ -1,5 +1,6 @@
 package caddy.util
 
+import caddy.Caddy.BuildConfig
 import caddy.command.Command
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
@@ -14,7 +15,7 @@ fun Command.createErrorEmbed(throwable: Throwable): EmbedBuilder {
         this.description = """
                            An unknown error occurred trying to run "$name"
             
-                           If this keeps happening don't be afraid to [make an issue](https://github.com/cadence-app/Caddy/issues/new)
+                           If this keeps happening don't be afraid to [make an issue](${BuildConfig.GIT_REPO_URL}/issues/new)
                            """.trimIndent()
 
         field {
