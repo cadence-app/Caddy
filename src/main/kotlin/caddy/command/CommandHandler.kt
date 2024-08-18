@@ -1,17 +1,26 @@
 package caddy.command
 
 import caddy.command.`fun`.Alien
+import caddy.command.utility.Help
 import caddy.command.utility.Ping
+import caddy.util.Colors
 import caddy.util.Logger
-import com.xenomachina.argparser.ArgParser
+import caddy.util.replyEmbed
+import caddy.util.createErrorEmbed
+import com.xenomachina.argparser.*
 import dev.kord.core.Kord
+import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.on
 
 object CommandHandler {
 
-    private val commands = listOf(
+    val commands: List<Command> = listOf(
+        // Utility
         Ping,
+        Help,
+
+        // Fun
         Alien
     )
 
@@ -19,7 +28,7 @@ object CommandHandler {
 
     private const val PREFIX = ":" // TODO: Make configurable
 
-    private fun resolveCommand(name: String): Command? {
+    fun resolveCommand(name: String): Command? {
         return commands.find { cmd ->
             cmd.name == name || cmd.aliases.contains(name)
         }
@@ -36,14 +45,45 @@ object CommandHandler {
             logger.debug("${message.author!!.tag}: ${message.content}")
 
             val split = message.content.split(" ").toMutableList()
-            val command = split.removeFirst().replaceFirst(PREFIX, "").lowercase()
+            val commandName = split.removeFirst().replaceFirst(PREFIX, "").lowercase()
 
-            resolveCommand(command)?.let {
-                logger.info("Command ${it.name} invoked by ${message.author?.tag ?: "Unknown"}")
-                it.invoke(
-                    argParser = ArgParser(split.toTypedArray()),
-                    this
-                )
+            resolveCommand(commandName)?.let { command ->
+                logger.info("Command \"${command.name}\" invoked by ${message.author?.tag ?: "Unknown"}")
+
+                try {
+                    command.invoke(argParser = ArgParser(split.toTypedArray()),this)
+                }
+
+                catch (e: ShowHelpException) { Help.invoke(ArgParser(arrayOf(commandName)), this) }
+
+                catch (e: OptionMissingRequiredArgumentException) {
+                    message.replyEmbed {
+                        color = Colors.Red
+                        title = "❌  Command failed"
+
+                        this.description = "One or more options are missing a required argument"
+                    }
+                }
+
+                catch (e: MissingValueException) {
+                    message.replyEmbed {
+                        color = Colors.Red
+                        title = "❌  Command failed"
+
+                        this.description = "One or more options are missing"
+                    }
+                }
+
+                catch (e: Throwable) {
+                    logger.error("An error occurred running \"${command.name}\"", e)
+
+                    runCatching {
+                        message.reply {
+                            embeds = mutableListOf(command.createErrorEmbed(e))
+                        }
+                    }
+                }
+
             }
         }
     }

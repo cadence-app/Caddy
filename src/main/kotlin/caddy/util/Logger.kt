@@ -15,8 +15,8 @@ class Logger(
 
     private fun timestamp() = SimpleDateFormat("M/d/y, h:mm:ss a", Locale.getDefault()).format(Date(System.currentTimeMillis()))
 
-    private fun write(color: Color, message: String) {
-        println("${color.code}$message${Color.RESET.code}")
+    private fun write(color: LogColor, message: String) {
+        println("${color.code}$message${LogColor.RESET.code}")
     }
 
     private fun indent(text: String, indent: Int): String {
@@ -57,7 +57,7 @@ class Logger(
 
 }
 
-private enum class Color(val code: String) {
+private enum class LogColor(val code: String) {
     ERROR("\u001b[31m"),
     WARN("\u001b[33m"),
     INFO("\u001b[36m"),
@@ -65,9 +65,9 @@ private enum class Color(val code: String) {
     RESET("\u001b[0m")
 }
 
-private enum class Level(val color: Color) {
-    DEBUG(Color.DEBUG),
-    INFO(Color.INFO),
-    WARN(Color.WARN),
-    ERROR(Color.ERROR)
+private enum class Level(val color: LogColor) {
+    DEBUG(LogColor.DEBUG),
+    INFO(LogColor.INFO),
+    WARN(LogColor.WARN),
+    ERROR(LogColor.ERROR)
 }

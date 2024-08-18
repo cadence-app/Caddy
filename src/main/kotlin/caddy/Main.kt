@@ -1,6 +1,7 @@
 package caddy
 
 import caddy.command.CommandHandler
+import caddy.paging.PagingHandler
 import caddy.util.Logger
 import dev.kord.core.Kord
 import dev.kord.core.event.gateway.ReadyEvent
@@ -24,6 +25,7 @@ suspend fun main() {
     }
 
     CommandHandler.listen(client)
+    PagingHandler.listen(client)
 
     client.login {
         intents = Intents.ALL

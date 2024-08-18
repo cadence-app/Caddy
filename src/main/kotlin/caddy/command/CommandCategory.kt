@@ -5,6 +5,6 @@ enum class CommandCategory(
     val description: String
 ) {
     UTILITY("Utility", "Basic utility commands"),
-    FUN("Fun", "Commands that don't server any actual purpose"),
+    FUN("Fun", "Commands that don't serve any actual purpose"),
     MODERATION("Moderation", "Commands used to moderate the server")
 }
