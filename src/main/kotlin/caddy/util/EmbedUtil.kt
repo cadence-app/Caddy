@@ -27,7 +27,7 @@ fun Command.createErrorEmbed(throwable: Throwable): EmbedBuilder {
     }
 }
 
-suspend fun Message.replyEmbed(builder: EmbedBuilder.() -> Unit): Message {
+suspend inline fun Message.replyEmbed(builder: EmbedBuilder.() -> Unit): Message {
     return reply {
         embed(builder)
     }

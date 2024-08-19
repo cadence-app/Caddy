@@ -4,6 +4,7 @@ import caddy.command.`fun`.Alien
 import caddy.command.utility.BotInfo
 import caddy.command.utility.Help
 import caddy.command.utility.Ping
+import caddy.command.utility.UserInfo
 import caddy.util.*
 import com.xenomachina.argparser.*
 import dev.kord.core.Kord
@@ -18,6 +19,7 @@ object CommandHandler {
         Ping,
         Help,
         BotInfo,
+        UserInfo,
 
         // Fun
         Alien
