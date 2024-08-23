@@ -1,5 +1,9 @@
 package caddy.util
 
+import dev.kord.core.entity.Emoji
+
+val emojiMentionRx = "<:([A-z_0-9]+):(\\d+)>".toRegex()
+
 object Emojis {
 
     const val GITHUB = "<:_:1274860271084765298>"
@@ -25,5 +29,18 @@ object Emojis {
     const val APP_TAG_START = "<:_:1275182454860415087>"
     const val APP_TAG_START_VERIFIED = "<:_:1275183767622909972>"
     const val APP_TAG_END = "<:_:1275182472367181935>"
+
+    // Logger Icons
+    const val MEMBER_UPDATE = "<:_:1276363673442713631>"
+    const val MEMBER_ADD = "<:_:1276364312352653352>"
+    const val MEMBER_REMOVE = "<:_:1276364621325799424>"
+
+    fun getId(emoji: String): String {
+        return emoji.replace(emojiMentionRx, "$2")
+    }
+
+    fun getUrl(emoji: String): String {
+        return "https://cdn.discordapp.com/emojis/${getId(emoji)}.webp"
+    }
 
 }

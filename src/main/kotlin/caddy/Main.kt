@@ -1,6 +1,7 @@
 package caddy
 
 import caddy.command.CommandHandler
+import caddy.logging.startAllEventLoggers
 import caddy.paging.PagingHandler
 import caddy.util.Logger
 import dev.kord.common.entity.Snowflake
@@ -37,6 +38,8 @@ suspend fun main() {
 
     CommandHandler.listen(client)
     PagingHandler.listen(client)
+
+    client.startAllEventLoggers()
 
     client.login {
         intents = Intents.ALL
