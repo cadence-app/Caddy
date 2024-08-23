@@ -1,16 +1,8 @@
 package caddy.command
 
-import caddy.command.utility.Help
-import caddy.util.Logger
-import caddy.util.createErrorEmbed
 import com.xenomachina.argparser.ArgParser
-import com.xenomachina.argparser.MissingValueException
-import com.xenomachina.argparser.ShowHelpException
-import com.xenomachina.argparser.UnrecognizedOptionException
-import dev.kord.common.Color
-import dev.kord.core.behavior.reply
+import dev.kord.common.entity.Permission
 import dev.kord.core.event.message.MessageCreateEvent
-import dev.kord.rest.builder.message.embed
 
 interface Command {
 
@@ -19,6 +11,7 @@ interface Command {
     val usage: String
     val category: CommandCategory
     val aliases: List<String>
+    val requiredPermissions: List<Permission>
 
     suspend fun invoke(argParser: ArgParser, messageCreate: MessageCreateEvent)
 
@@ -30,6 +23,7 @@ fun createCommand(
     usage: String = ":$name",
     category: CommandCategory,
     aliases: List<String> = emptyList(),
+    requiredPermissions: List<Permission> = emptyList(),
     run: suspend ArgParser.(MessageCreateEvent) -> Unit
 ): Command {
     return object : Command {
@@ -39,6 +33,7 @@ fun createCommand(
         override val usage: String = usage
         override val category: CommandCategory = category
         override val aliases: List<String> = aliases
+        override val requiredPermissions: List<Permission> = requiredPermissions
 
         override suspend fun invoke(argParser: ArgParser, messageCreate: MessageCreateEvent) {
             run(argParser, messageCreate)

@@ -1,12 +1,16 @@
 package caddy.command
 
 import caddy.command.`fun`.Alien
+import caddy.command.moderation.RoleAdd
+import caddy.command.moderation.RoleRemove
 import caddy.command.utility.BotInfo
 import caddy.command.utility.Help
 import caddy.command.utility.Ping
 import caddy.command.utility.UserInfo
 import caddy.util.*
 import com.xenomachina.argparser.*
+import dev.kord.common.entity.Permission
+import dev.kord.common.entity.Permissions
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.message.MessageCreateEvent
@@ -20,6 +24,10 @@ object CommandHandler {
         Help,
         BotInfo,
         UserInfo,
+
+        // Moderation
+        RoleAdd,
+        RoleRemove,
 
         // Fun
         Alien
@@ -50,6 +58,32 @@ object CommandHandler {
 
             resolveCommand(commandName)?.let { command ->
                 logger.info("Command \"${command.name}\" invoked by ${message.author?.tag ?: "Unknown"}")
+
+                if (command.requiredPermissions.isNotEmpty()) {
+                    if (guildId == null) {
+                        message.replyEmbed {
+                            color = Colors.Red
+                            title = "${Emojis.ERROR} Error running ${command.name}"
+                            description = "This command must be ran in a server"
+                        }
+                        return@on
+                    }
+
+                    val roles = message.getGuildOrNull()?.getMemberOrNull(message.data.author.id)?.roleIds?.map { it.value.toString() } ?: emptyList()
+                    val effectivePerms = EffectivePermissions.filterKeys { it in roles }.values.flatten()
+
+                    if (roles.isEmpty() || !effectivePerms.containsAll(command.requiredPermissions)) {
+                        message.replyEmbed {
+                            color = Colors.Red
+                            title = "${Emojis.ERROR} Error running ${command.name}"
+                            description = "No permissions found"
+                        }
+                        return@on
+                    }
+
+                    // We can just assume that the bot has perms bc we control its permissions
+                    // SELFHOSTERS: Give the bot admin or something
+                }
 
                 try {
                     command.invoke(argParser = ArgParser(split.toTypedArray()),this)
