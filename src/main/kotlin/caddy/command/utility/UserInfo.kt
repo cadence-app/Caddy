@@ -8,6 +8,7 @@ import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.toMessageFormat
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.effectiveName
+import dev.kord.rest.Image
 import dev.kord.rest.builder.message.actionRow
 import dev.kord.rest.builder.message.embed
 
@@ -55,7 +56,7 @@ val UserInfo = createCommand(
             """.trimIndent()
 
             thumbnail {
-                url = (member?.memberAvatar ?: user.avatar ?: user.defaultAvatar).cdnUrl.toUrl()
+                url = (member?.memberAvatar ?: user.avatar)?.cdnUrl?.toUrl() ?: user.defaultAvatar.cdnUrl.toUrl { format = Image.Format.PNG }
             }
 
             field {
