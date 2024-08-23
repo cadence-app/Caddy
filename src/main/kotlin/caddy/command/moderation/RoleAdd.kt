@@ -11,6 +11,10 @@ import kotlinx.coroutines.flow.toCollection
 val RoleAdd = createCommand(
     name = "roleadd",
     description = "Gives a role to a given member",
+    usage = buildString {
+        appendLine(":roleadd role member")
+        appendLine("Note: You can also use this command by replying")
+    },
     category = CommandCategory.MODERATION,
     aliases = listOf("ra", "add", "+"),
     requiredPermissions = listOf(Permission.ManageRoles)
@@ -91,7 +95,7 @@ val RoleAdd = createCommand(
         event.message.replyEmbed {
             color = Colors.Blue
             title = "Role added successfully"
-            description = "${role.mention} has been added to ${target.mention}"
+            description = "${Emojis.CHECK} ${role.mention} has been added to ${target.mention}"
         }
     } catch (e: Throwable) {
         logger.error("Failed to add role", e)

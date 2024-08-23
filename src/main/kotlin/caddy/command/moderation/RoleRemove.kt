@@ -9,6 +9,10 @@ import dev.kord.common.entity.Permission
 val RoleRemove = createCommand(
     name = "roleremove",
     description = "Removes a role from a given member",
+    usage = buildString {
+        appendLine(":roleremove role member")
+        appendLine("Note: You can also use this command by replying")
+    },
     category = CommandCategory.MODERATION,
     aliases = listOf("rr", "remove", "-"),
     requiredPermissions = listOf(Permission.ManageRoles)
@@ -89,7 +93,7 @@ val RoleRemove = createCommand(
         event.message.replyEmbed {
             color = Colors.Blue
             title = "Role removed successfully"
-            description = "${role.mention} has been removed from ${target.mention}"
+            description = "${Emojis.CHECK} ${role.mention} has been removed from ${target.mention}"
         }
     } catch (e: Throwable) {
         logger.error("Failed to remove role", e)

@@ -5,6 +5,7 @@ object Emojis {
     const val GITHUB = "<:_:1274860271084765298>"
     const val ERROR = "<:X:1274861107844219022>"
     const val INFO = "<:i:1274866248668418089>"
+    const val CHECK = "<:i:1276336871131189289>"
 
     // Badges
     const val HYPESQUAD_EVENTS = "<:_:1274943724002213939>"
