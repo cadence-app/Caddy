@@ -1,6 +1,7 @@
 package caddy.command
 
 import caddy.command.`fun`.Alien
+import caddy.command.`fun`.Pronouns
 import caddy.command.moderation.RoleAdd
 import caddy.command.moderation.RoleRemove
 import caddy.command.utility.BotInfo
@@ -31,7 +32,8 @@ object CommandHandler {
         RoleRemove,
 
         // Fun
-        Alien
+        Alien,
+        Pronouns
     )
 
     private val logger = Logger("CommandHandler")

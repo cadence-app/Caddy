@@ -27,6 +27,8 @@ val Help = createCommand(
 
     val command by positional("").default(null)
 
+    val filteredCommands = CommandHandler.commands.filterNot { it.ownerOnly }
+
     when {
         command != null -> {
             event.message.replyEmbed {
@@ -65,7 +67,7 @@ val Help = createCommand(
         }
 
         category != null -> {
-            val commandsInCategory = CommandHandler.commands.filter { it.category == category }
+            val commandsInCategory = filteredCommands.filter { it.category == category }
 
             event.message.createPaginator(commandsInCategory) { page ->
                 color = Colors.Blue
@@ -89,7 +91,7 @@ val Help = createCommand(
                 description = "All of the commands this bot supports\n \nUse `:help [command]` to view information about an individual command"
 
                 CommandCategory.entries.forEach { category ->
-                    val cmds = CommandHandler.commands.filter { cmd -> cmd.category == category }
+                    val cmds = filteredCommands.filter { cmd -> cmd.category == category }
                     if (cmds.isNotEmpty()) {
                         field {
                             name = category.title
