@@ -7,6 +7,7 @@ import caddy.command.utility.BotInfo
 import caddy.command.utility.Help
 import caddy.command.utility.Ping
 import caddy.command.utility.UserInfo
+import caddy.ownerId
 import caddy.util.*
 import com.xenomachina.argparser.*
 import dev.kord.common.entity.Permission
@@ -58,6 +59,15 @@ object CommandHandler {
 
             resolveCommand(commandName)?.let { command ->
                 logger.info("Command \"${command.name}\" invoked by ${message.author?.tag ?: "Unknown"}")
+
+                if (command.ownerOnly && message.author!!.id != ownerId) {
+                    message.replyEmbed {
+                        color = Colors.Red
+                        title = "${Emojis.ERROR} Error running ${command.name}"
+                        description = "This command can only be used by the bot's owner"
+                    }
+                    return@on
+                }
 
                 if (command.requiredPermissions.isNotEmpty()) {
                     if (guildId == null) {
