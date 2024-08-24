@@ -8,6 +8,7 @@ import caddy.db.entity.Case
 import caddy.db.entity.CaseType
 import caddy.logging.CaseLogger
 import caddy.util.constants.Colors
+import caddy.util.constants.Constants
 import caddy.util.constants.Emojis
 import caddy.util.discord.replyEmbed
 import caddy.util.userMentionPositional
@@ -22,7 +23,7 @@ val Warn = createCommand(
     usage = ":warn <user> <reason>",
     category = CommandCategory.MODERATION,
     aliases = listOf("w"),
-    requiredPermissions = listOf(Permission.ModerateMembers)
+    allowedRoles = Constants.ModRoles
 ) { event ->
 
     val target by userMentionPositional()

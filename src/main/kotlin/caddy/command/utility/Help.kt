@@ -35,7 +35,7 @@ val Help = createCommand(
                 val cmd = CommandHandler.resolveCommand(command!!.lowercase())
                 if (cmd != null) {
                     color = Colors.Blue
-                    title = cmd.name
+                    title = "${if (cmd.ownerOnly) "${Emojis.SHIELD} " else ""}${cmd.name}"
                     description = cmd.description
 
                     if (cmd.aliases.isNotEmpty()) field {
@@ -47,6 +47,12 @@ val Help = createCommand(
                     field {
                         name = "Category"
                         value = cmd.category.title
+                        inline = true
+                    }
+
+                    if (cmd.allowedRoles.isNotEmpty()) field {
+                        name = "Allowed roles"
+                        value = cmd.allowedRoles.joinToString { "<@&${it}>" }
                         inline = true
                     }
 

@@ -5,6 +5,7 @@ import caddy.command.createCommand
 import caddy.db.CaddyDB
 import caddy.db.cases
 import caddy.util.constants.Colors
+import caddy.util.constants.Constants
 import caddy.util.constants.Emojis
 import caddy.util.discord.replyEmbed
 import dev.kord.common.entity.Permission
@@ -19,7 +20,7 @@ val Case = createCommand(
     description = "Retrieve details about a case",
     usage = ":case <#>",
     category = CommandCategory.MODERATION,
-    requiredPermissions = listOf(Permission.ModerateMembers)
+    allowedRoles = Constants.ModRoles
 ) { event ->
 
     val caseId by positional("") { toIntOrNull() }

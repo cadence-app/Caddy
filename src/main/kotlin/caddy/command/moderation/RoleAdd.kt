@@ -4,6 +4,7 @@ import caddy.command.CommandCategory
 import caddy.command.createCommand
 import caddy.util.*
 import caddy.util.constants.Colors
+import caddy.util.constants.Constants
 import caddy.util.constants.Emojis
 import caddy.util.discord.replyEmbed
 import com.xenomachina.argparser.default
@@ -18,7 +19,7 @@ val RoleAdd = createCommand(
     },
     category = CommandCategory.MODERATION,
     aliases = listOf("ra", "add", "+"),
-    requiredPermissions = listOf(Permission.ManageRoles)
+    allowedRoles = Constants.ModRoles
 ) { event ->
 
     val roleResolvable by positional("")

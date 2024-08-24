@@ -8,6 +8,7 @@ object Emojis {
     const val ERROR = "<:X:1274861107844219022>"
     const val INFO = "<:i:1274866248668418089>"
     const val CHECK = "<:y:1276336871131189289>"
+    const val SHIELD = "<:_:1276729607927627776>"
 
     // Badges
     const val HYPESQUAD_EVENTS = "<:_:1274943724002213939>"

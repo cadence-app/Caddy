@@ -79,7 +79,7 @@ object CommandHandler {
                     return@on
                 }
 
-                if (command.requiredPermissions.isNotEmpty()) {
+                if (command.allowedRoles.isNotEmpty()) {
                     if (guildId == null) {
                         message.replyEmbed {
                             color = Colors.Red
@@ -89,14 +89,13 @@ object CommandHandler {
                         return@on
                     }
 
-                    val roles = message.getGuildOrNull()?.getMemberOrNull(message.data.author.id)?.roleIds?.map { it.value.toString() } ?: emptyList()
-                    val effectivePerms = EffectivePermissions.filterKeys { it in roles }.values.flatten()
+                    val roles = message.getGuildOrNull()?.getMemberOrNull(message.data.author.id)?.roleIds?.map { it.toString() } ?: emptyList()
 
-                    if (roles.isEmpty() || !effectivePerms.containsAll(command.requiredPermissions)) {
+                    if (roles.isEmpty() || !roles.any { it in command.allowedRoles }) {
                         message.replyEmbed {
                             color = Colors.Red
                             title = "${Emojis.ERROR} Error running ${command.name}"
-                            description = "No permissions found"
+                            description = "Unfortunately, you do not have permission to use that command\nMust have one of: ${command.allowedRoles.joinToString { "<@&$it>" }}"
                         }
                         return@on
                     }
