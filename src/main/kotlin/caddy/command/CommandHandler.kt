@@ -111,6 +111,24 @@ object CommandHandler {
 
                 catch (e: ShowHelpException) { Help.invoke(ArgParser(arrayOf(commandName)), this) }
 
+                catch (e: UnexpectedPositionalArgumentException) {
+                    message.replyEmbed {
+                        color = Colors.Red
+                        title = "${Emojis.ERROR} Command failed"
+
+                        this.description = "Too many arguments provided for this command"
+                    }
+                }
+
+                catch (e: UnrecognizedOptionException) {
+                    message.replyEmbed {
+                        color = Colors.Red
+                        title = "${Emojis.ERROR} Command failed"
+
+                        this.description = "Option \"${e.optName}\" not recognized"
+                    }
+                }
+
                 catch (e: OptionMissingRequiredArgumentException) {
                     message.replyEmbed {
                         color = Colors.Red
