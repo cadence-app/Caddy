@@ -2,11 +2,10 @@ package caddy.logging.loggers
 
 import caddy.logging.EventLogger
 import caddy.logging.EventType
-import caddy.util.Emojis
+import caddy.util.constants.Emojis
 import dev.kord.core.Kord
 import dev.kord.core.event.guild.MemberJoinEvent
 import dev.kord.core.on
-import kotlinx.datetime.Clock
 
 object MemberAddLogger: EventLogger(
     icon = Emojis.MEMBER_ADD,

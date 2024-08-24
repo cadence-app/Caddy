@@ -1,4 +1,4 @@
-package caddy.util
+package caddy.util.discord
 
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Permission.*

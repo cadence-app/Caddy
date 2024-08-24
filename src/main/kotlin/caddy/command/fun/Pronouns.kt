@@ -2,9 +2,9 @@ package caddy.command.`fun`
 
 import caddy.command.CommandCategory
 import caddy.command.createCommand
-import caddy.util.Colors
-import caddy.util.Emojis
-import caddy.util.replyEmbed
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
+import caddy.util.discord.replyEmbed
 import io.ktor.client.request.*
 import io.ktor.http.*
 

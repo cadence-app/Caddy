@@ -1,5 +1,6 @@
-package caddy.util
+package caddy.util.discord
 
+import caddy.util.constants.Emojis
 import dev.kord.common.entity.UserFlag
 import dev.kord.common.entity.UserFlags
 import dev.kord.core.entity.User

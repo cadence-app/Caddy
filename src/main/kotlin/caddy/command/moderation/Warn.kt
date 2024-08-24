@@ -7,9 +7,9 @@ import caddy.db.cases
 import caddy.db.entity.Case
 import caddy.db.entity.CaseType
 import caddy.logging.CaseLogger
-import caddy.util.Colors
-import caddy.util.Emojis
-import caddy.util.replyEmbed
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
+import caddy.util.discord.replyEmbed
 import caddy.util.userMentionPositional
 import dev.kord.common.entity.Permission
 import dev.kord.rest.Image

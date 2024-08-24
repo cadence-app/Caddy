@@ -1,7 +1,7 @@
 package caddy.db.entity
 
-import caddy.util.Colors
-import caddy.util.Emojis
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
 import dev.kord.common.Color
 import kotlinx.datetime.Instant
 import org.ktorm.entity.Entity

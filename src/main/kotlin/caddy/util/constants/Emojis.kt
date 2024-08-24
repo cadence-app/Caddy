@@ -1,6 +1,4 @@
-package caddy.util
-
-import dev.kord.core.entity.Emoji
+package caddy.util.constants
 
 val emojiMentionRx = "<:([A-z_0-9]+):(\\d+)>".toRegex()
 

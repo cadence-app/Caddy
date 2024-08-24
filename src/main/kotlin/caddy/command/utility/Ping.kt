@@ -2,8 +2,8 @@ package caddy.command.utility
 
 import caddy.command.CommandCategory
 import caddy.command.createCommand
-import caddy.util.Colors
-import caddy.util.Emojis
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
 import dev.kord.core.behavior.edit
 import dev.kord.core.behavior.reply
 import dev.kord.rest.builder.message.embed

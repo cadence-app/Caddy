@@ -1,7 +1,9 @@
-package caddy.util
+package caddy.util.discord
 
 import caddy.Caddy.BuildConfig
 import caddy.command.Command
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
 import dev.kord.rest.builder.message.EmbedBuilder

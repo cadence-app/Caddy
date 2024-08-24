@@ -1,4 +1,4 @@
-package caddy.util
+package caddy.util.constants
 
 import dev.kord.common.Color
 

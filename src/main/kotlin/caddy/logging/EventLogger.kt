@@ -4,8 +4,9 @@ import caddy.logging.loggers.EditNicknameLogger
 import caddy.logging.loggers.MemberAddLogger
 import caddy.logging.loggers.MemberRemoveLogger
 import caddy.logging.loggers.MemberRolesLogger
-import caddy.util.Colors
-import caddy.util.Emojis
+import caddy.util.constants.Colors
+import caddy.util.constants.Constants
+import caddy.util.constants.Emojis
 import dev.kord.common.Color
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
@@ -14,10 +15,8 @@ import dev.kord.core.entity.channel.TextChannel
 import dev.kord.rest.builder.message.EmbedBuilder
 import kotlinx.datetime.Clock
 
-const val ACTION_LOG_CHANNEL = "1276358891130589317"
-
 open class EventLogger(
-    private val channelId: String = ACTION_LOG_CHANNEL,
+    private val channelId: String = Constants.ACTION_LOGS_CHANNEL,
     private val icon: String,
     private val title: String,
     private val type: EventType

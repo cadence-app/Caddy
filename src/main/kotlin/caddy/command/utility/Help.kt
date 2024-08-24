@@ -4,9 +4,9 @@ import caddy.command.CommandCategory
 import caddy.command.CommandHandler
 import caddy.command.createCommand
 import caddy.paging.createPaginator
-import caddy.util.Colors
-import caddy.util.Emojis
-import caddy.util.replyEmbed
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
+import caddy.util.discord.replyEmbed
 import com.xenomachina.argparser.default
 
 val Help = createCommand(

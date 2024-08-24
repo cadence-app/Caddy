@@ -4,9 +4,9 @@ import caddy.command.CommandCategory
 import caddy.command.createCommand
 import caddy.db.CaddyDB
 import caddy.db.cases
-import caddy.util.Colors
-import caddy.util.Emojis
-import caddy.util.replyEmbed
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
+import caddy.util.discord.replyEmbed
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Snowflake
 import dev.kord.rest.Image

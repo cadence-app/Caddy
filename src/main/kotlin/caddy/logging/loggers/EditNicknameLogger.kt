@@ -2,7 +2,7 @@ package caddy.logging.loggers
 
 import caddy.logging.EventLogger
 import caddy.logging.EventType
-import caddy.util.Emojis
+import caddy.util.constants.Emojis
 import dev.kord.core.Kord
 import dev.kord.core.event.guild.MemberUpdateEvent
 import dev.kord.core.on

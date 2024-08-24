@@ -4,9 +4,9 @@ import caddy.Caddy.BuildConfig
 import caddy.command.CommandCategory
 import caddy.command.createCommand
 import caddy.onlineTimestamp
-import caddy.util.Colors
-import caddy.util.Emojis
-import caddy.util.replyEmbed
+import caddy.util.constants.Colors
+import caddy.util.constants.Emojis
+import caddy.util.discord.replyEmbed
 import dev.kord.common.DiscordTimestampStyle
 import dev.kord.common.toMessageFormat
 
