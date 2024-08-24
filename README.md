@@ -4,12 +4,13 @@ The bot designed for the Cadence discord server
 ## Running
 > [!NOTE]
 > 
-> Make sure you have Git and Java installed
+> Make sure you have Git, Java, and sqlite3 installed
 
 1. Clone this repo
     - `git clone https://github.com/cadence-app/Caddy.git && cd gloom`
 2. Set up environment variables
     - `CADDY_BOT_TOKEN`: The token for your bot, click [here](https://discord.com/developers/docs/quick-start/getting-started#step-1-creating-an-app) to find out how to obtain your bot's token
+    - `CADDY_DB_LOCATION`: The desired location to store Caddy's sqlite database
 3. Build the project
     - Linux: `chmod +x ./gradlew && ./gradlew build`
     - Windows: `./gradlew build`

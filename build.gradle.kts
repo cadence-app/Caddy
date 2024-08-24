@@ -56,6 +56,13 @@ dependencies {
     val argParserVersion = "2.0.7"
 
     implementation("com.xenomachina:kotlin-argparser:$argParserVersion")
+
+    val ktormVersion = "4.1.0"
+
+    implementation("org.ktorm:ktorm-core:$ktormVersion")
+    implementation("org.ktorm:ktorm-support-sqlite:$ktormVersion")
+
+    implementation("org.xerial:sqlite-jdbc:3.41.2.2")
 }
 
 fun getCurrentRemote(): String? =

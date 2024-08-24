@@ -9,7 +9,7 @@ object Emojis {
     const val GITHUB = "<:_:1274860271084765298>"
     const val ERROR = "<:X:1274861107844219022>"
     const val INFO = "<:i:1274866248668418089>"
-    const val CHECK = "<:i:1276336871131189289>"
+    const val CHECK = "<:y:1276336871131189289>"
 
     // Badges
     const val HYPESQUAD_EVENTS = "<:_:1274943724002213939>"
@@ -34,6 +34,7 @@ object Emojis {
     const val MEMBER_UPDATE = "<:_:1276363673442713631>"
     const val MEMBER_ADD = "<:_:1276364312352653352>"
     const val MEMBER_REMOVE = "<:_:1276364621325799424>"
+    const val WARN = "<:w:1276684046830669947>"
 
     fun getId(emoji: String): String {
         return emoji.replace(emojiMentionRx, "$2")

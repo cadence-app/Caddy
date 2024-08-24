@@ -11,6 +11,7 @@ import io.ktor.http.*
 val Pronouns = createCommand(
     name = "pronouns",
     description = "Sets the bots pronouns in the current guild",
+    usage = ":pronouns <clear|pronouns>",
     category = CommandCategory.FUN,
     ownerOnly = true
 ) { event ->

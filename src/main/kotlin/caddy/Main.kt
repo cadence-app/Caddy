@@ -1,6 +1,7 @@
 package caddy
 
 import caddy.command.CommandHandler
+import caddy.db.setupDb
 import caddy.logging.startAllEventLoggers
 import caddy.paging.PagingHandler
 import caddy.util.Logger
@@ -20,6 +21,8 @@ var ownerId: Snowflake? = null
 
 @OptIn(PrivilegedIntent::class)
 suspend fun main() {
+    setupDb()
+
     val client = Kord(System.getenv("CADDY_BOT_TOKEN")) {
         httpClient = LoggedHttpClient
     }

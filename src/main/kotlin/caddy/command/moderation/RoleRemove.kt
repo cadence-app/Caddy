@@ -10,7 +10,7 @@ val RoleRemove = createCommand(
     name = "roleremove",
     description = "Removes a role from a given member",
     usage = buildString {
-        appendLine(":roleremove role member")
+        appendLine(":roleremove <role> <member>")
         appendLine("Note: You can also use this command by replying")
     },
     category = CommandCategory.MODERATION,

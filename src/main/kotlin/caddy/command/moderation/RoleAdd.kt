@@ -12,7 +12,7 @@ val RoleAdd = createCommand(
     name = "roleadd",
     description = "Gives a role to a given member",
     usage = buildString {
-        appendLine(":roleadd role member")
+        appendLine(":roleadd <role> <member>")
         appendLine("Note: You can also use this command by replying")
     },
     category = CommandCategory.MODERATION,

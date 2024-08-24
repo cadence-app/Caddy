@@ -2,8 +2,10 @@ package caddy.command
 
 import caddy.command.`fun`.Alien
 import caddy.command.`fun`.Pronouns
+import caddy.command.moderation.Case
 import caddy.command.moderation.RoleAdd
 import caddy.command.moderation.RoleRemove
+import caddy.command.moderation.Warn
 import caddy.command.utility.BotInfo
 import caddy.command.utility.Help
 import caddy.command.utility.Ping
@@ -30,6 +32,8 @@ object CommandHandler {
         // Moderation
         RoleAdd,
         RoleRemove,
+        Warn,
+        Case,
 
         // Fun
         Alien,
