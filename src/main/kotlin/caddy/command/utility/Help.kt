@@ -101,7 +101,7 @@ val Help = createCommand(
                     if (cmds.isNotEmpty()) {
                         field {
                             name = category.title
-                            value = CommandHandler.commands.filter { cmd -> cmd.category == category }.joinToString { it.name }
+                            value = cmds.joinToString { it.name }
                         }
                     }
                 }
