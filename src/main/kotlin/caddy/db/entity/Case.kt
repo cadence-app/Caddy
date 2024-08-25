@@ -13,6 +13,7 @@ interface Case: Entity<Case> {
     var targetId: String
     var reason: String?
     var createdAt: Instant
+    var logMessageId: String?
 
     companion object : Entity.Factory<Case>()
 }

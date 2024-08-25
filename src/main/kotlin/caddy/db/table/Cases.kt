@@ -12,4 +12,5 @@ object Cases: Table<Case>("t_cases") {
     val targetId = varchar("target_id").bindTo { it.targetId }
     val reason = varchar("reason").bindTo { it.reason }
     val createdAt = instant("created_at").bindTo { it.createdAt }
+    val logMessageId = varchar("log_message_id").bindTo { it.logMessageId }
 }

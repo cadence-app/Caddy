@@ -1,44 +1,32 @@
 package caddy.logging
 
+import caddy.db.CaddyDB
+import caddy.db.cases
 import caddy.db.entity.Case
 import caddy.util.constants.Constants
-import caddy.util.constants.Emojis
+import caddy.util.discord.createCaseEmbed
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.channel.createMessage
+import dev.kord.core.behavior.edit
 import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.TextChannel
-import dev.kord.rest.Image
-import dev.kord.rest.builder.message.embed
+import org.ktorm.entity.update
 
 object CaseLogger {
 
     suspend fun logCase(kord: Kord, actor: User, case: Case) {
         (kord.getChannel(Snowflake(Constants.MOD_LOGS_CHANNEL))?.asChannel() as TextChannel).createMessage {
-            embed {
-                color = case.type.color
+            embeds = mutableListOf(createCaseEmbed(case, actor))
+        }.also {
+            CaddyDB.cases.update(case.apply { logMessageId = it.id.toString() })
+        }
+    }
 
-                author {
-                    name = "Case #${case.id} | ${case.type.label}"
-                    icon = Emojis.getUrl(case.type.icon)
-                }
-
-                field {
-                    name = "User"
-                    value = "<@${case.targetId}> (${case.id})"
-                }
-
-                field {
-                    name = "Reason"
-                    value = case.reason ?: "*No reason provided, use `:reason` to set one*"
-                }
-
-                footer {
-                    icon = actor.avatar?.cdnUrl?.toUrl() ?: actor.defaultAvatar.cdnUrl.toUrl { format = Image.Format.PNG }
-                    text = "Mod: @${actor.tag} (${case.actorId})"
-                }
-
-                timestamp = case.createdAt
+    suspend fun updateLog(kord: Kord, actor: User?, case: Case) {
+        case.logMessageId?.let {
+            (kord.getChannel(Snowflake(Constants.MOD_LOGS_CHANNEL))?.asChannel() as TextChannel).getMessageOrNull(Snowflake(it))?.edit {
+                embeds = mutableListOf(createCaseEmbed(case, actor))
             }
         }
     }
