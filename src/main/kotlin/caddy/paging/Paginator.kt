@@ -132,14 +132,14 @@ suspend fun <T> Message.createPaginator(
     val paginator = object : Paginator<T>(data, pageSize) {
 
         override fun buildEmbed(page: Int): EmbedBuilder {
-            val pageData = data.chunked(pageSize)[page]
+            val pageData = data.chunked(pageSize).getOrNull(page)
 
             return EmbedBuilder().apply {
                 footer {
                     text = "Page ${page + 1} of $totalPages"
                 }
 
-                builder(pageData)
+                builder(pageData ?: emptyList())
             }
         }
 

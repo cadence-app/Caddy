@@ -35,6 +35,7 @@ object CommandHandler {
         Warn,
         Case,
         Reason,
+        Cases,
 
         // Fun
         Alien,
