@@ -19,6 +19,8 @@ object MemberRolesLogger: EventLogger(
             val added = member.roleIds.filterNot { it in (old?.roleIds ?: emptySet()) }
             val removed = (old?.roleIds ?: emptySet()).filterNot { it in member.roleIds }
 
+            if (added.isEmpty() && removed.isEmpty()) return@on
+
             kord.log {
                 if (added.isNotEmpty()) field {
                     name = "Added"
