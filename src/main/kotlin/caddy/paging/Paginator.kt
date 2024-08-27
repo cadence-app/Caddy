@@ -2,20 +2,16 @@ package caddy.paging
 
 import dev.kord.common.entity.ButtonStyle
 import dev.kord.common.entity.DiscordPartialEmoji
-import dev.kord.core.behavior.MessageBehavior
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.edit
 import dev.kord.core.behavior.reply
 import dev.kord.core.entity.Message
-import dev.kord.rest.builder.component.ActionRowBuilder
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.builder.message.MessageBuilder
 import dev.kord.rest.builder.message.actionRow
-import dev.kord.rest.builder.message.modify.UserMessageModifyBuilder
 import kotlinx.coroutines.*
-import kotlin.io.encoding.Base64
-import kotlin.io.encoding.ExperimentalEncodingApi
+import kotlinx.datetime.Clock
 import kotlin.math.ceil
-import kotlin.random.Random
 import kotlin.time.Duration.Companion.minutes
 
 // Translation of https://codeberg.org/vee/bot/src/branch/main/src/util/Paginator.ts
@@ -24,8 +20,7 @@ open class Paginator<T>(
     val pageSize: Int = 10
 ) {
 
-    @OptIn(ExperimentalEncodingApi::class)
-    val id = Base64.encode(Random.nextInt(100000000, 999999999).toString().encodeToByteArray())
+    val id = Snowflake(Clock.System.now())
     val totalPages = ceil(data.size.toFloat() / pageSize).toInt()
 
     private var currentPage: Int = 0
@@ -50,10 +45,7 @@ open class Paginator<T>(
         userId = targetMessage.author?.id?.toString() ?: "-1"
         PagingHandler += this
 
-        timeoutJob = CoroutineScope(Dispatchers.IO).launch {
-            delay(5.minutes)
-            destroy()
-        }
+        startTimeout()
     }
 
     suspend fun destroy() {
@@ -66,11 +58,20 @@ open class Paginator<T>(
         PagingHandler -= this
     }
 
+    private fun startTimeout() {
+        timeoutJob?.cancel()
+        timeoutJob = CoroutineScope(Dispatchers.IO).launch {
+            delay(5.minutes)
+            destroy()
+        }
+    }
+
     private suspend fun navigateToPage(page: Int) {
         currentPage = page
         message?.edit {
             renderPage(page)
         }
+        startTimeout()
     }
 
     suspend fun next() {
@@ -91,7 +92,7 @@ open class Paginator<T>(
 
     private fun MessageBuilder.renderPage(page: Int) {
         embeds = mutableListOf(buildEmbed(page))
-        if (!isFirstPage && !isLastPage) {
+        if (totalPages > 1) {
             actionRow {
                 interactionButton(ButtonStyle.Secondary, "paging:first:$id") {
                     emoji = DiscordPartialEmoji(name = "⏪")
@@ -132,7 +133,7 @@ suspend fun <T> Message.createPaginator(
     val paginator = object : Paginator<T>(data, pageSize) {
 
         override fun buildEmbed(page: Int): EmbedBuilder {
-            val pageData = data.chunked(pageSize).getOrNull(page)
+            val pageData = this.data.chunked(this.pageSize).getOrNull(page)
 
             return EmbedBuilder().apply {
                 footer {

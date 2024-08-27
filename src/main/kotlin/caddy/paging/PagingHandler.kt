@@ -1,6 +1,7 @@
 package caddy.paging
 
 import caddy.util.Logger
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.respondEphemeral
 import dev.kord.core.entity.interaction.ButtonInteraction
@@ -9,7 +10,7 @@ import dev.kord.core.on
 
 object PagingHandler {
 
-    private val paginators = mutableMapOf<String, Paginator<*>>()
+    private val paginators = mutableMapOf<Snowflake, Paginator<*>>()
 
     private val logger = Logger("PagingHandler")
 
@@ -33,7 +34,7 @@ object PagingHandler {
 
                 if (id.startsWith("paging")) {
                     val (_, action, paginatorId) = id.split(":")
-                    val paginator = paginators[paginatorId]
+                    val paginator = paginators[Snowflake(paginatorId)]
 
                     if (paginator == null) {
                         (interaction as ButtonInteraction).respondEphemeral {
@@ -50,7 +51,6 @@ object PagingHandler {
                     }
 
                     kord.rest.interaction.deferMessageUpdate(interaction.id, interaction.token)
-                    logger.debug(action)
                     when (action) {
                         "next" -> paginator.next()
                         "prev" -> paginator.prev()
