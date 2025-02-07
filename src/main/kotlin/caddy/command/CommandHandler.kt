@@ -59,6 +59,14 @@ object CommandHandler {
         kord.on<MessageCreateEvent> {
             if (message.author?.isBot != false) return@on
             if (message.content.isBlank()) return@on
+
+            if (message.content.trim() == kord.getSelf().mention) {
+                message.reply {
+                    content = "Hi, ${message.author?.mention}, my prefix is currently set to `$PREFIX`"
+                }
+                return@on
+            }
+
             if (!message.content.startsWith(PREFIX)) return@on
 
             logger.debug("${message.author!!.tag}: ${message.content}")
