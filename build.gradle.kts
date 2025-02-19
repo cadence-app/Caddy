@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream
 
 plugins {
     kotlin("jvm") version "2.0.20-RC2"
+    kotlin("plugin.serialization") version "2.0.20-RC2"
     id("com.github.gmazzo.buildconfig") version "5.4.0"
 }
 
@@ -14,7 +15,6 @@ buildConfig {
     buildConfigField("GIT_REPO_URL", getRepoUrl())
     buildConfigField("GIT_LOCAL_COMMITS", hasLocalCommits())
     buildConfigField("GIT_LOCAL_CHANGES", hasLocalChanges())
-
 }
 
 repositories {
@@ -52,6 +52,7 @@ dependencies {
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
     val argParserVersion = "2.0.7"
 

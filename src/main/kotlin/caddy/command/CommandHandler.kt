@@ -4,10 +4,7 @@ import caddy.command.`fun`.Alien
 import caddy.command.`fun`.Pronouns
 import caddy.command.`fun`.Warm
 import caddy.command.moderation.*
-import caddy.command.utility.BotInfo
-import caddy.command.utility.Help
-import caddy.command.utility.Ping
-import caddy.command.utility.UserInfo
+import caddy.command.utility.*
 import caddy.ownerId
 import caddy.util.*
 import caddy.util.constants.Colors
@@ -28,6 +25,7 @@ object CommandHandler {
         Help,
         BotInfo,
         UserInfo,
+        DiscordStatus,
 
         // Moderation
         RoleAdd,
